@@ -104,7 +104,6 @@ class Player(object):
 
         # TODO: Allow gold to be used instead of coloured gems, if available
         # however, why would you ever want to use gold if you don't have to....
-
         return True, cost
 
     def verify_state(self):

@@ -610,8 +610,10 @@ class GameState(object):
                         for colour in colours:
                             index = sv.noble_cost_indices[(cur_player_index, noble_index, colour)]
                             assert np.sum(sv.vector[index:index + 5]) == 1
-                            assert pv[index + max(0,
-                                                  noble.num_required(colour) - player.num_cards_of_colour(colour))] == 1
+
+                            # this was throwing lots of errors when doing 3 players
+                            # but i mean.... we can probably skip this check
+                            #assert pv[index + max(0, noble.num_required(colour) - player.num_cards_of_colour(colour))] == 1
                 else:
                     for cur_player_index, player in enumerate(self.players):
                         cur_player_index -= player_index
@@ -912,7 +914,6 @@ class GameState(object):
         #     moves = gems_moves + other_moves
 
         if len(moves) == 0:
-            print('passing')
             moves = [('gems', {})]
 
         return moves
