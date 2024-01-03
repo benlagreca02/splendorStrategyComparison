@@ -1,5 +1,6 @@
 from gameFiles.StateVector import StateVector
 from abc import ABC, abstractmethod
+from gameFiles.GameState import GameState
 
 
 # abstract base class
@@ -11,5 +12,5 @@ class PlayerAlgorithm(ABC):
 
     # every algorithm will implement this differently
     @abstractmethod
-    def calculate_move(self, state_vec: StateVector):
+    def calculate_move(self, game_state: GameState):
         pass

@@ -2,12 +2,8 @@ import numpy as np
 
 from gameFiles.GameState import GameState
 
-from gameFiles.Card import Card
-from gameFiles.Noble import Noble
-from gameFiles.Player import Player
-
-from TrueRandomAlgo import TrueRandomAlgo
-
+from algorithms.TrueRandomAlgo import TrueRandomAlgo
+from algorithms.RandomGrabGreedyRandomBuy import RandomGrabGreedyRandomBuy
 
 def play_game(man, players, verb):
     num_rounds = 0
@@ -29,11 +25,12 @@ def play_game(man, players, verb):
 
 if __name__ == '__main__':
 
-    num_games = 500
-    print_freq = 25
+    num_games = 100
+    print_freq = 10
     verb = False
     # should always be a list of PlayerAlgorithm objects
-    algos = [TrueRandomAlgo(1, verbose=verb), TrueRandomAlgo(2, verbose=verb), TrueRandomAlgo(3, verbose=verb)]
+    # algos = [TrueRandomAlgo(1, verbose=verb), TrueRandomAlgo(2, verbose=verb), TrueRandomAlgo(3, verbose=verb)]
+    algos = [TrueRandomAlgo(1), RandomGrabGreedyRandomBuy(2), TrueRandomAlgo(3), TrueRandomAlgo(4)]
 
     win_count = [0 for _ in range(len(algos))]
     rounds_to_win = [0 for _ in range(num_games)]
@@ -46,4 +43,5 @@ if __name__ == '__main__':
         win_count[winner_number] += 1
         if i % print_freq ==0:
             print(i)
-    print(f"Avg rounds to win: {np.average(rounds_to_win)}, {win_count}")
+    win_rates = list(map(lambda x: x/num_games, win_count))
+    print(f"Avg rounds to win: {np.average(rounds_to_win)}, Win Rates: {win_rates}")
